@@ -1,6 +1,6 @@
 Package: com.ajun.timeseconds
 Name: TimeSeconds
-Version: 1.0.0
+Version: 1.0.1
 Architecture: iphoneos-arm64
 Section: Tweaks
 Depends: mobilesubstrate
@@ -8,11 +8,11 @@ Maintainer: ajun
 Author: ajun
 Tag: purpose::extension
 Installed-Size: 172
-Filename: debs/com.ajun.timeseconds_1.0.0_iphoneos-arm64.deb
-Size: 10830
-MD5sum: 024b570d0f4d6df96b433be8377e1da7
-SHA1: 2e1cfceb6ee215927fc6870640bd38ac9ee52e2a
-SHA256: f348ce5551c190be91f2dfb605f544d401eb73909aca6a5096ad93ba90b927a3
+Filename: debs/com.ajun.timeseconds_1.0.1_iphoneos-arm64.deb
+Size: 11678
+MD5sum: 9f3d065efd996a56f8f68d48c029c008
+SHA1: c9942d8b01a26043e9c88ae4577a16c78b9a696f
+SHA256: e9262c55954f565877feb826beb3ad72b746dadbebaa5725e26bc1bdcec68602
 Description: 让状态栏时间实时显示秒数
  系统状态栏默认只在分钟变化时刷新，本插件接管时间文本，
  每秒更新一次，显示成 9:41:07 这样的格式。
