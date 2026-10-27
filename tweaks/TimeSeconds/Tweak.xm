@@ -89,6 +89,8 @@ static NSString *TSWithSeconds(NSString *base, NSInteger sec) {
 @property (nonatomic, strong) NSAttributedString *attr; // 若原视图用 attributedText 则保留样式
 @property (nonatomic, strong) UIFont *baseFont;      // 系统原始字体（缩放前）
 @property (nonatomic, strong) UIFont *appliedFont;   // 我们最后写进去的字体
+@property (nonatomic, copy) NSString *lastOut;       // 上一次渲染的完整文本
+@property (nonatomic) CGFloat lastSize;              // 上一次渲染用的字号
 @end
 @implementation TSItem
 @end
@@ -96,6 +98,9 @@ static NSString *TSWithSeconds(NSString *base, NSInteger sec) {
 // 让数字等宽，避免秒数跳动时状态栏宽度抖动
 // 字号统一收 5%：状态栏原本的字体套上等宽数字后视觉上会略大，缩一点更贴合原生观感
 #define TS_FONT_SCALE 0.95
+
+// 字距收紧比例（相对字号）。0 = 系统默认；0.028 ≈ 14.5pt 下每个字符间隙收 0.4pt
+#define TS_KERN_RATIO 0.028
 
 static UIFont *TSMonospacedDigits(UIFont *font) {
     if (!font) return nil;
@@ -112,6 +117,12 @@ static UIFont *TSMonospacedDigits(UIFont *font) {
     } @catch (NSException *e) {
         return nil;
     }
+}
+
+// 负的 NSKern 让 9:41:07 稍微紧凑一点，整体能窄 2~3pt
+static NSNumber *TSKernForSize(CGFloat size) {
+    CGFloat k = -round(size * TS_KERN_RATIO * 100.0) / 100.0;
+    return @(k);
 }
 
 #pragma mark - 时钟
@@ -171,37 +182,40 @@ static NSTimeInterval gLastScan = 0;
     NSInteger sec = [[NSCalendar currentCalendar] component:NSCalendarUnitSecond fromDate:[NSDate date]];
     NSString *out = TSWithSeconds(it.base, sec);
 
-    NSString *cur = view.text;
-    if (cur.length == 0 && it.attr) cur = it.attr.string;
-
     // 字体：始终从系统原始字体推导，避免每分钟被重复缩放
-    if (!it.attr) {
-        UIFont *f = view.font;
-        if (it.appliedFont && f != it.appliedFont) {
-            it.baseFont = f;                 // 系统换了字体（灵动岛 / 样式切换），跟着走
-        } else if (!it.baseFont) {
-            it.baseFont = f;
-        }
-
-        UIFont *want = TSMonospacedDigits(it.baseFont);
-        if (want && (f == nil || fabs(f.pointSize - want.pointSize) > 0.01)) {
-            gInternal = YES;
-            view.font = want;
-            gInternal = NO;
-            it.appliedFont = want;
-        }
+    UIFont *f = view.font;
+    if (it.appliedFont && f != it.appliedFont) {
+        it.baseFont = f;                     // 系统换了字体（灵动岛 / 样式切换），跟着走
+    } else if (!it.baseFont) {
+        it.baseFont = f;
     }
 
-    if ([cur isEqualToString:out]) return;
+    UIFont *want = TSMonospacedDigits(it.baseFont);
+    if (!want) return;
+
+    // 文本和字号都没变就不用重写（减少无谓的布局）
+    // 同时要比对视图上当前实际显示的内容：系统可能刚写回分钟级文本
+    NSString *cur = view.text;
+    if (cur.length == 0) cur = view.attributedText.string;
+    BOOL sameText = [it.lastOut isEqualToString:out] && [cur isEqualToString:out];
+    BOOL sameSize = (fabs(it.lastSize - want.pointSize) <= 0.01);
+    if (sameText && sameSize) return;
+
+    // 用 attributedText 才能带字距；其余属性沿用系统原来那份（如果有）
+    NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+    if (it.attr.length > 0) {
+        NSDictionary *src = [it.attr attributesAtIndex:0 effectiveRange:NULL];
+        if (src) [attrs addEntriesFromDictionary:src];
+    }
+    attrs[NSFontAttributeName] = want;
+    attrs[NSKernAttributeName] = TSKernForSize(want.pointSize);
 
     gInternal = YES;
     @try {
-        if (it.attr) {
-            NSDictionary *attrs = it.attr.length ? [it.attr attributesAtIndex:0 effectiveRange:NULL] : nil;
-            view.attributedText = [[NSAttributedString alloc] initWithString:out attributes:attrs];
-        } else {
-            view.text = out;
-        }
+        view.attributedText = [[NSAttributedString alloc] initWithString:out attributes:attrs];
+        it.appliedFont = want;
+        it.lastOut = out;
+        it.lastSize = want.pointSize;
     } @catch (NSException *e) {
         TSLOG(@"render failed: %@", e);
     } @finally {

@@ -43,12 +43,11 @@ jobs:
       - name: Publish deb and rebuild index
         run: |
           mkdir -p debs
+          # 保留历史版本，方便 Sileo 里降级；不再删除同包名的旧 deb
           for f in tweaks/TimeSeconds/packages/*.deb; do
             base=$(basename "$f")
-            pkg="${base%%_*}"
-            echo "package: $pkg  <- $base"
-            rm -f debs/${pkg}_*.deb
-            cp "$f" debs/
+            echo "publish: $base"
+            cp -f "$f" debs/
           done
           ls -l debs/
           python3 build_repo.py

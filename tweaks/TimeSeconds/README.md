@@ -23,8 +23,9 @@ iOS 16 的状态栏时间由 `UIKitCore` 的 `_UIStatusBarTimeItem` 驱动，
 2. 自己跑一个**对齐到整秒**的 `NSTimer`，每秒把 `base` 重新渲染成
    `9:41:07`，保留原来的 12/24 小时制分隔符和 AM/PM 后缀；
 3. 给文本套上等宽数字（`kNumberSpacingType` / `MonospacedNumbersSelector`），
-   字号按系统原字号收 5%（`TS_FONT_SCALE = 0.95`），秒数跳动时宽度不抖、
-   视觉上也更贴合原生状态栏；
+   字号按系统原字号收 5%（`TS_FONT_SCALE = 0.95`），
+   并用负的 `NSKernAttributeName` 把字距收一点（`TS_KERN_RATIO = 0.028`），
+   整体比原生窄 2~3pt，秒数跳动时宽度不抖；
 4. 兜底：如果 hook 没抓到（未来系统改了类名），每秒扫一次状态栏视图树，
    找形如时间的 `UILabel` 自行接管。
 
@@ -44,25 +45,30 @@ iOS 16 的状态栏时间由 `UIKitCore` 的 `_UIStatusBarTimeItem` 驱动，
 export THEOS=~/theos
 cd tweaks/TimeSeconds
 make package FINALPACKAGE=1
-# 产物：packages/com.ajun.timeseconds_2.1.0_iphoneos-arm64.deb
+# 产物：packages/com.ajun.timeseconds_2.1.1_iphoneos-arm64.deb
 ```
 
 ## 安装
 
 ```bash
-dpkg -i com.ajun.timeseconds_2.1.0_iphoneos-arm64.deb
+dpkg -i com.ajun.timeseconds_2.1.1_iphoneos-arm64.deb
 killall -9 SpringBoard
 ```
 
 或者直接从源里装：`https://ajun-github.github.io/monainai/`
 
-## 调字号
+源里会**同时保留历史版本**（2.1.0 / 2.1.1 ...），Sileo 里可以随时降级。
 
-只有源码里一个常量：
+## 调字号 / 字距
+
+只有源码里两个常量：
 
 ```objc
-#define TS_FONT_SCALE 0.95   // 1.0 = 和系统原生一样大
+#define TS_FONT_SCALE 0.95   // 字号倍率，1.0 = 和系统原生一样大
+#define TS_KERN_RATIO 0.028  // 字距收紧比例，0 = 系统默认
 ```
+
+想更紧凑就调大 `TS_KERN_RATIO`（例如 0.04），想恢复默认就设 0。
 
 改完推 `main` 会自动重编译发布。
 
