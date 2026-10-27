@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>title</key>
+	<string>TimeSeconds</string>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupSpecifier</string>
+			<key>label</key>
+			<string>总开关</string>
+			<key>footerText</key>
+			<string>关闭后立即恢复系统原生的分钟级时间，无需注销。</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>启用秒数显示</string>
+			<key>key</key>
+			<string>enabled</string>
+			<key>defaults</key>
+			<string>com.ajun.timeseconds</string>
+			<key>default</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupSpecifier</string>
+			<key>label</key>
+			<string>外观</string>
+			<key>footerText</key>
+			<string>默认 95%。觉得字体偏大就往左调，偏小往右调；拖动后立即生效。</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>label</key>
+			<string>字体大小 (%)</string>
+			<key>key</key>
+			<string>scale</string>
+			<key>defaults</key>
+			<string>com.ajun.timeseconds</string>
+			<key>default</key>
+			<integer>95</integer>
+			<key>min</key>
+			<integer>60</integer>
+			<key>max</key>
+			<integer>140</integer>
+			<key>showValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupSpecifier</string>
+			<key>label</key>
+			<string>位置</string>
+			<key>footerText</key>
+			<string>以系统原始位置为 0。向右 / 向下为正，单位是点 (pt)。只影响状态栏时间，不影响其他元素。</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>label</key>
+			<string>水平位置 (pt)</string>
+			<key>key</key>
+			<string>offsetX</string>
+			<key>defaults</key>
+			<string>com.ajun.timeseconds</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>min</key>
+			<integer>-30</integer>
+			<key>max</key>
+			<integer>30</integer>
+			<key>showValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>label</key>
+			<string>垂直位置 (pt)</string>
+			<key>key</key>
+			<string>offsetY</string>
+			<key>defaults</key>
+			<string>com.ajun.timeseconds</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>min</key>
+			<integer>-15</integer>
+			<key>max</key>
+			<integer>15</integer>
+			<key>showValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupSpecifier</string>
+			<key>footerText</key>
+			<string>TimeSeconds 2.0.0 · iOS 16+ · RootHide / rootless</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>恢复默认设置</string>
+			<key>action</key>
+			<string>resetSettings</string>
+		</dict>
+	</array>
+</dict>
+</plist>
