@@ -1,0 +1,57 @@
+name: Build tweak
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tweaks/**'
+      - '.github/workflows/build-tweak.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Theos
+        uses: Randomblock1/theos-action@v1
+        with:
+          theos-dir: ${{ github.workspace }}/theos
+
+      - name: Install dpkg (for dpkg-deb)
+        run: brew install dpkg || true
+
+      - name: Show toolchain
+        run: |
+          export PATH="$(brew --prefix make)/libexec/gnubin:$PATH"
+          echo "THEOS=$THEOS"
+          ls "$THEOS/sdks"
+          which dpkg-deb || echo "dpkg-deb missing"
+          clang --version | head -1
+
+      - name: Build TimeSeconds
+        working-directory: tweaks/TimeSeconds
+        run: |
+          export PATH="$(brew --prefix make)/libexec/gnubin:$PATH"
+          make package FINALPACKAGE=1 DEBUG=0
+          ls -l packages/
+
+      - name: Publish deb and rebuild index
+        run: |
+          mkdir -p debs
+          cp tweaks/TimeSeconds/packages/*.deb debs/
+          ls -l debs/
+          python3 build_repo.py
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A debs Packages Packages.gz Packages.bz2
+          if git diff --staged --quiet; then
+            echo "索引和 deb 都没有变化"
+          else
+            git commit -m "build: TimeSeconds $(date -u +%Y%m%d-%H%M%S)"
+            git push
+          fi
