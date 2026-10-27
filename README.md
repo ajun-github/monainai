@@ -1,10 +1,10 @@
-# jbrepo
+# monainai
 
 一个可以直接托管在 GitHub Pages 上的越狱源（APT 平铺仓库），Sileo / Zebra / Cydia 通用。
 
-> 仓库：`ajun-github/jbrepo`
+> 仓库：`ajun-github/monainai`
 
-源地址：`https://ajun-github.github.io/jbrepo/`
+源地址：`https://ajun-github.github.io/monainai/`
 
 ---
 
@@ -39,13 +39,13 @@ Sileo 里显示的源名字就是这两个字段。
 ## 二、发布到 GitHub Pages
 
 ```bash
-# 1. 在 GitHub 上新建一个 public 仓库，名字叫 jbrepo（或任意）
+# 1. 在 GitHub 上新建一个 public 仓库，名字叫 monainai（或任意）
 
 # 2. 本地初始化并推送
 git init
 git add -A
 git commit -m "init: jailbreak repo"
-git remote add origin https://github.com/ajun-github/jbrepo.git
+git remote add origin https://github.com/ajun-github/monainai.git
 git push -u origin main
 ```
 
@@ -55,7 +55,7 @@ git push -u origin main
 - Branch: `main` / `/ (root)`
 - 点 **Save**
 
-等 1~2 分钟，访问 `https://ajun-github.github.io/jbrepo/Packages`，
+等 1~2 分钟，访问 `https://ajun-github.github.io/monainai/Packages`，
 能下载到一个（可能为空的）文本文件就说明成功了。
 
 > 第一次部署时 `Packages` 是空的，属正常。丢一个 deb 进去就会自动有内容。
@@ -82,7 +82,7 @@ push 之后 GitHub Actions 会**自动再跑一次** `build_repo.py` 并提交�
 
 ### 在 Sileo 里添加
 
-源 → 右上角 `+` → `https://ajun-github.github.io/jbrepo/` → 添加。
+源 → 右上角 `+` → `https://ajun-github.github.io/monainai/` → 添加。
 
 ---
 
@@ -115,7 +115,7 @@ python build_repo.py --check  # 只检查 deb，不写文件
 
 **Sileo 添加后提示「无法读取源」**
 
-1. 打开 `https://ajun-github.github.io/jbrepo/Packages` 看能不能下载
+1. 打开 `https://ajun-github.github.io/monainai/Packages` 看能不能下载
 2. 打不开 → Pages 还没部署好，或分支/目录选错了
 3. 能下载但报错 → `Packages` 格式坏了，重新跑 `python build_repo.py`
 
