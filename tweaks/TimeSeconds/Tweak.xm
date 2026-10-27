@@ -99,8 +99,8 @@ static NSString *TSWithSeconds(NSString *base, NSInteger sec) {
 // 字号统一收 5%：状态栏原本的字体套上等宽数字后视觉上会略大，缩一点更贴合原生观感
 #define TS_FONT_SCALE 0.95
 
-// 字距收紧比例（相对字号）。0 = 系统默认；0.028 ≈ 14.5pt 下每个字符间隙收 0.4pt
-#define TS_KERN_RATIO 0.028
+// 字距收紧比例（相对字号）。0 = 系统默认；0.05 ≈ 14.5pt 下每个字符间隙收 0.7pt
+#define TS_KERN_RATIO 0.05
 
 static UIFont *TSMonospacedDigits(UIFont *font) {
     if (!font) return nil;
