@@ -467,7 +467,7 @@ static NSTimeInterval gLastPrefCheck = 0;
 // 位置偏移：每次布局系统设置 frame 时叠加，避免和状态栏自己的布局打架
 - (void)setFrame:(CGRect)frame {
     if (gEnabled && (gDX != 0.0 || gDY != 0.0)) {
-        if ([gViews objectForKey:self] != nil) {
+        if ([gViews objectForKey:(UILabel *)self] != nil) {
             frame.origin.x += gDX;
             frame.origin.y += gDY;
         }
