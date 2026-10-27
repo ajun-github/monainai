@@ -24,3 +24,30 @@ Description: 让状态栏时间实时显示秒数
  .
  支持 iOS 16 及以上，兼容 RootHide / Dopamine roothide 与常规 rootless。
  自动保留 12/24 小时制与 AM/PM 后缀。
+
+Package: com.ajun.timeseconds
+Name: TimeSeconds
+Version: 2.1.1
+Architecture: iphoneos-arm64
+Section: Tweaks
+Depends: mobilesubstrate
+Maintainer: ajun
+Author: ajun
+Tag: purpose::extension
+Installed-Size: 188
+Filename: debs/com.ajun.timeseconds_2.1.1_iphoneos-arm64.deb
+Size: 13016
+MD5sum: 4f4a9ac8a58a82bcb3ba7d7ab1b68005
+SHA1: f63998295a9e89283ee58bacf643989b6607dc74
+SHA256: 0e5b8fa19028ff7af0cfa7d2fd2c475174b587a71dae3e9988343af59300a7be
+Description: 让状态栏时间实时显示秒数
+ 系统状态栏默认只在分钟变化时刷新，本插件接管时间文本，
+ 每秒更新一次，显示成 9:41:07 这样的格式。
+ .
+ 2.1.1：字距再收紧一点，整体比上一版窄 2~3pt。
+ 2.1.0：回到最初的无设置面板版本，装上即用。
+ · 字号比系统原生小 5%，视觉上更贴合状态栏
+ · 数字等宽，秒数跳动时宽度不抖
+ .
+ 支持 iOS 16 及以上，兼容 RootHide / Dopamine roothide 与常规 rootless。
+ 自动保留 12/24 小时制与 AM/PM 后缀。
