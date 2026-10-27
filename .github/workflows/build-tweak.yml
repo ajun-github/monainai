@@ -43,7 +43,13 @@ jobs:
       - name: Publish deb and rebuild index
         run: |
           mkdir -p debs
-          cp tweaks/TimeSeconds/packages/*.deb debs/
+          for f in tweaks/TimeSeconds/packages/*.deb; do
+            base=$(basename "$f")
+            pkg="${base%%_*}"
+            echo "package: $pkg  <- $base"
+            rm -f debs/${pkg}_*.deb
+            cp "$f" debs/
+          done
           ls -l debs/
           python3 build_repo.py
           git config user.name  "github-actions[bot]"

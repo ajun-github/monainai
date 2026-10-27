@@ -87,9 +87,25 @@ static NSString *TSWithSeconds(NSString *base, NSInteger sec) {
 @interface TSItem : NSObject
 @property (nonatomic, copy) NSString *base;          // 分钟级基准文本
 @property (nonatomic, strong) NSAttributedString *attr; // 若原视图用 attributedText 则保留样式
+@property (nonatomic) BOOL fontApplied;              // 是否已换成等宽数字字体
 @end
 @implementation TSItem
 @end
+
+// 让数字等宽，避免秒数跳动时状态栏宽度抖动
+static UIFont *TSMonospacedDigits(UIFont *font) {
+    if (!font) return nil;
+    @try {
+        NSArray *features = @[ @{ UIFontFeatureTypeIdentifierKey: @(6),      // kNumberSpacingType
+                                  UIFontFeatureSelectorIdentifierKey: @(0) } ]; // MonospacedNumbersSelector
+        UIFontDescriptor *desc =
+            [font.fontDescriptor fontDescriptorByAddingAttributes:
+                @{ UIFontDescriptorFeatureSettingsAttribute: features }];
+        return [UIFont fontWithDescriptor:desc size:font.pointSize];
+    } @catch (NSException *e) {
+        return nil;
+    }
+}
 
 #pragma mark - 时钟
 
@@ -133,6 +149,7 @@ static NSTimeInterval gLastScan = 0;
     }
     it.base = base;
     it.attr = (text.length == 0 && attr.length > 0) ? attr : nil;
+    it.fontApplied = NO;
 
     [self scheduleTick];
     [self renderView:label item:it];
@@ -154,6 +171,13 @@ static NSTimeInterval gLastScan = 0;
             NSDictionary *attrs = it.attr.length ? [it.attr attributesAtIndex:0 effectiveRange:NULL] : nil;
             view.attributedText = [[NSAttributedString alloc] initWithString:out attributes:attrs];
         } else {
+            if (!it.fontApplied) {
+                UIFont *mono = TSMonospacedDigits(view.font);
+                if (mono) {
+                    view.font = mono;
+                    it.fontApplied = YES;
+                }
+            }
             view.text = out;
         }
     } @catch (NSException *e) {
@@ -196,11 +220,13 @@ static NSTimeInterval gLastScan = 0;
         NSString *cur = v.text;
         if (TSIsMinuteText(cur)) {
             it.base = cur;
+            it.fontApplied = NO;
         } else if (cur.length == 0) {
             NSString *as = v.attributedText.string;
             if (TSIsMinuteText(as)) {
                 it.base = as;
                 it.attr = v.attributedText;
+                it.fontApplied = NO;
             }
         }
         [self renderView:v item:it];
