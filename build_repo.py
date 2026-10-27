@@ -14,8 +14,10 @@ import hashlib
 import io
 import lzma
 import os
+import struct
 import sys
 import tarfile
+import zlib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DEB_DIR = os.path.join(ROOT, "debs")
@@ -80,6 +82,20 @@ def decompress(name, data):
     except Exception as exc:
         warnings.append("解压 %s 失败: %s" % (name, exc))
     return None
+
+
+def gzip_deterministic(data):
+    """跨平台完全一致的 gzip 输出（固定 mtime / XFL / OS 字节）。
+
+    标准库 gzip.compress 会把 zlib 编译平台写进 header 的 OS 字节，
+    导致 Windows 本地构建和 Linux CI 构建的 Packages.gz 字节不同，
+    每次 push 都会产生一个无意义的 "rebuild index" 提交。
+    """
+    co = zlib.compressobj(9, zlib.DEFLATED, -15)  # 裸 deflate，不要 zlib 头
+    body = co.compress(data) + co.flush()
+    header = b"\x1f\x8b\x08\x00" + b"\x00\x00\x00\x00" + b"\x00\xff"
+    crc = zlib.crc32(data) & 0xFFFFFFFF
+    return header + body + struct.pack("<II", crc, len(data) & 0xFFFFFFFF)
 
 
 def read_control(deb_path):
@@ -211,7 +227,7 @@ def main():
     with open(os.path.join(ROOT, "Packages"), "wb") as f:
         f.write(raw)
     with open(os.path.join(ROOT, "Packages.gz"), "wb") as f:
-        f.write(gzip.compress(raw, 9, mtime=0))
+        f.write(gzip_deterministic(raw))
     with open(os.path.join(ROOT, "Packages.bz2"), "wb") as f:
         f.write(bz2.compress(raw, 9))
 
