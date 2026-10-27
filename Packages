@@ -79,3 +79,21 @@ Description: 让状态栏时间实时显示秒数
  .
  支持 iOS 16 及以上，兼容 RootHide / Dopamine roothide 与常规 rootless。
  自动保留 12/24 小时制与 AM/PM 后缀。
+
+Package: com.dao.keybar
+Name: KeyBar(RootHide)
+Version: 1.1+newline1
+Architecture: iphoneos-arm64e
+Section: 嗨-工具
+Depends: mobilesubstrate, firmware (>= 15.0)
+Maintainer: daodao
+Author: daodao
+SileoDepiction: https://xiangfeidexiaohuo.github.io/sileodepiction/keybar/js.json
+Installed-Size: 428
+Filename: debs/com.dao.keybar_1.1+newline1_iphoneos-arm64e.deb
+Size: 48826
+MD5sum: ef8256a14ab7511d77839dd08da4df63
+SHA1: 8d2ea2a8cac997d85266382c286cf081cab8195b
+SHA256: 5fcfc45b92a710b4b43d5eb61c3867108de791562883c45cb2e56d4a81d23175
+Description: 键盘增强插件，支持调整键盘底部间距及地球键、听写键的垂直位置，并在键盘下方添加全选、复制、剪切和粘贴快捷按钮，长按即可快速收起键盘，让输入操作更加便捷。
+ 本包为个人修改版：快捷栏"剪切"按钮已改为"换行"(insertText)。
