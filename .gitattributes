@@ -1,0 +1,16 @@
+# 统一换行符：仓库内一律 LF，避免 Windows 上提交 CRLF 导致 APT 索引异常
+* text=auto
+
+# APT 索引必须是纯 LF，且不能有 BOM
+Packages        text eol=lf
+Release         text eol=lf
+*.py            text eol=lf
+*.yml           text eol=lf
+*.md            text eol=lf
+
+# 二进制文件不做任何转换
+*.png   binary
+*.gz    binary
+*.bz2   binary
+*.deb   binary
+*.dylib binary

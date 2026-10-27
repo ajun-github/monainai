@@ -1,0 +1,41 @@
+name: Build repo index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'debs/**'
+      - 'build_repo.py'
+      - '.github/workflows/build-repo.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install zstd support
+        run: pip install zstandard
+
+      - name: Build Packages
+        run: python build_repo.py
+
+      - name: Commit index
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "索引没有变化"
+          else
+            git commit -m "chore: rebuild repo index"
+            git push
+          fi
