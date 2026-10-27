@@ -10,23 +10,20 @@
 
 ## 源里有什么
 
-### TimeSeconds 2.0.0 — 状态栏时间显示秒数
+### TimeSeconds 2.1.0 — 状态栏时间显示秒数
 
 `com.ajun.timeseconds` · iOS 16+ · RootHide / rootless · arm64 + arm64e
 
-状态栏时间从 `9:41` 变成 `9:41:07`，每秒刷新一次。
+状态栏时间从 `9:41` 变成 `9:41:07`，每秒刷新一次。装上即用，没有设置面板。
 
-设置面板在 **设置 → 插件 → TimeSeconds**：
+- 数字等宽，秒数跳动时宽度不抖
+- 字号比系统原生小 5%（源码里 `TS_FONT_SCALE`）
+- 自动保留 12/24 小时制与 AM/PM 后缀
 
-| 选项 | 范围 | 默认 |
-|---|---|---|
-| 启用秒数显示 | 开 / 关 | 开 |
-| 字体大小 | 60% ~ 140% | 95% |
-| 水平位置 | -30 ~ +30 pt | 0 |
-| 垂直位置 | -15 ~ +15 pt | 0 |
+源码在 [`tweaks/TimeSeconds/`](tweaks/TimeSeconds/)，改完 `control` 里的 `Version`
+推到 `main`，GitHub Actions 会自动编译并发布。
 
-改动即时生效，不用注销。源码在 [`tweaks/TimeSeconds/`](tweaks/TimeSeconds/)，
-改完 `control` 里的 `Version` 推到 `main`，GitHub Actions 会自动编译并发布。
+> 2.0.0 试过加「设置 → 插件」面板（字号 / 位置 / 开关），不好用，2.1.0 已整套撤掉。
 
 ---
 
