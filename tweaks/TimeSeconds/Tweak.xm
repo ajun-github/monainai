@@ -95,7 +95,7 @@ static NSString *TSWithSeconds(NSString *base, NSInteger sec) {
 
 @interface TSClock : NSObject
 + (instancetype)shared;
-- (void)registerView:(UILabel *)view;
+- (void)registerView:(id)view;
 @end
 
 static BOOL gInternal = NO;                       // 防止自己的写入被 hook 再次处理
@@ -115,26 +115,27 @@ static NSTimeInterval gLastScan = 0;
     return c;
 }
 
-- (void)registerView:(UILabel *)view {
+- (void)registerView:(id)view {
     if (![view isKindOfClass:[UILabel class]]) return;
+    UILabel *label = (UILabel *)view;
 
-    NSString *text = view.text;
-    NSAttributedString *attr = view.attributedText;
+    NSString *text = label.text;
+    NSAttributedString *attr = label.attributedText;
 
     NSString *base = TSBaseText(text);
     if (!base) base = TSBaseText(attr.string);
     if (!base) return;
 
-    TSItem *it = [gViews objectForKey:view];
+    TSItem *it = [gViews objectForKey:label];
     if (!it) {
         it = [TSItem new];
-        [gViews setObject:it forKey:view];
+        [gViews setObject:it forKey:label];
     }
     it.base = base;
     it.attr = (text.length == 0 && attr.length > 0) ? attr : nil;
 
     [self scheduleTick];
-    [self renderView:view item:it];
+    [self renderView:label item:it];
 }
 
 - (void)renderView:(UILabel *)view item:(TSItem *)it {
