@@ -82,7 +82,7 @@ Description: 让状态栏时间实时显示秒数
 
 Package: com.dao.keybar
 Name: KeyBar(RootHide)
-Version: 1.1+newline1
+Version: 1.1+newline2
 Architecture: iphoneos-arm64e
 Section: 嗨-工具
 Depends: mobilesubstrate, firmware (>= 15.0)
@@ -90,10 +90,9 @@ Maintainer: daodao
 Author: daodao
 SileoDepiction: https://xiangfeidexiaohuo.github.io/sileodepiction/keybar/js.json
 Installed-Size: 428
-Filename: debs/com.dao.keybar_1.1+newline1_iphoneos-arm64e.deb
-Size: 48826
-MD5sum: ef8256a14ab7511d77839dd08da4df63
-SHA1: 8d2ea2a8cac997d85266382c286cf081cab8195b
-SHA256: 5fcfc45b92a710b4b43d5eb61c3867108de791562883c45cb2e56d4a81d23175
+Filename: debs/com.dao.keybar_1.1+newline2_iphoneos-arm64e.deb
+Size: 43312
+MD5sum: dfbee0623032c7c76e2a35f3cc939c3c
+SHA1: de2e2b66da88db9704bf283bb8e7cc3cfbb2aa46
+SHA256: 93d8580629d9b3906028b84973bc1ca9bd036117d0225c44b8e682d6828a9571
 Description: 键盘增强插件，支持调整键盘底部间距及地球键、听写键的垂直位置，并在键盘下方添加全选、复制、剪切和粘贴快捷按钮，长按即可快速收起键盘，让输入操作更加便捷。
- 本包为个人修改版：快捷栏"剪切"按钮已改为"换行"(insertText)。
