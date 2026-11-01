@@ -1,3 +1,22 @@
+Package: ajun.ios.iphoneduoicon
+Name: iPhoneDuo圆形图标
+Version: 0.1.21
+Architecture: iphoneos-arm64
+Section: 杂七杂八
+Depends: firmware (>= 16.0), firmware (<< 19.0), mobilesubstrate, preferenceloader
+Conflicts: com.82flex.singlevpn
+Maintainer: 啊骏
+Author: ajun
+Sponsor: 啊骏
+Icon: https://chinesebuilding.club/pic/cydia.png
+Installed-Size: 728
+Filename: debs/ajun.ios.iphoneduoicon_0.1.21_iphoneos-arm64.deb
+Size: 199644
+MD5sum: ef8e4bf5e51cf844e134199353f3d6a1
+SHA1: 6726e559d23d45c14355c257e8ff14c57f077755
+SHA256: d684edd0d8d225bd63bdd3f739c11f5bcf50421237517718f30a3d8e45713632
+Description: Combined battery, Wi-Fi and dual-line cellular status icon.电量、wi-Fi与蜂窝信号一体化，提供星环和胶囊两种状态栏样式。效果看截图，还是非常的不错的，搬运工源永久免费更新！
+
 Package: com.ajun.timeseconds
 Name: TimeSeconds
 Version: 2.1.0
