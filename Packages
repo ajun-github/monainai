@@ -5,16 +5,16 @@ Architecture: iphoneos-arm64
 Section: 杂七杂八
 Depends: firmware (>= 16.0), firmware (<< 19.0), mobilesubstrate, preferenceloader
 Conflicts: com.82flex.singlevpn
-Maintainer: 啊骏
-Author: ajun
-Sponsor: 啊骏
+Maintainer: 妹妹白勺仍子
+Author: 妹妹白勺仍子
+Sponsor: 妹妹白勺仍子
 Icon: https://chinesebuilding.club/pic/cydia.png
 Installed-Size: 728
 Filename: debs/ajun.ios.iphoneduoicon_0.1.21_iphoneos-arm64.deb
-Size: 199644
-MD5sum: ef8e4bf5e51cf844e134199353f3d6a1
-SHA1: 6726e559d23d45c14355c257e8ff14c57f077755
-SHA256: d684edd0d8d225bd63bdd3f739c11f5bcf50421237517718f30a3d8e45713632
+Size: 199652
+MD5sum: e3572341b5dfb4152ac5a4337541a169
+SHA1: c36cda61feb3b2df58164d08680e4167438b1a0b
+SHA256: 0d9fe50d54557a6f2fada317cd6e649e6b415366a68f77d1f88f4aad329223d4
 Description: Combined battery, Wi-Fi and dual-line cellular status icon.电量、wi-Fi与蜂窝信号一体化，提供星环和胶囊两种状态栏样式。效果看截图，还是非常的不错的，搬运工源永久免费更新！
 
 Package: com.ajun.timeseconds
@@ -23,15 +23,15 @@ Version: 2.1.0
 Architecture: iphoneos-arm64
 Section: Tweaks
 Depends: mobilesubstrate
-Maintainer: ajun
-Author: ajun
+Maintainer: 妹妹白勺仍子
+Author: 妹妹白勺仍子
 Tag: purpose::extension
 Installed-Size: 172
 Filename: debs/com.ajun.timeseconds_2.1.0_iphoneos-arm64.deb
-Size: 12396
-MD5sum: af9141e54e2c38a0a7018e0adf6ab440
-SHA1: 137786fbb5a8a93e0a3107239700c57fbb53df4d
-SHA256: dab88f9cd07e3df8645e03558203695994aae44a3f3bb42143288cfc32c9b83a
+Size: 12422
+MD5sum: 73d7a95ffdb63e555026b5836758622e
+SHA1: 330d6e8187b56cd8e9f59e78d53351db6769abbc
+SHA256: bc0472dc4d35c64c2eea00215e57cbb96de8001db07b73feef904c1c68ac5eaa
 Description: 让状态栏时间实时显示秒数
  系统状态栏默认只在分钟变化时刷新，本插件接管时间文本，
  每秒更新一次，显示成 9:41:07 这样的格式。
@@ -50,15 +50,15 @@ Version: 2.1.1
 Architecture: iphoneos-arm64
 Section: Tweaks
 Depends: mobilesubstrate
-Maintainer: ajun
-Author: ajun
+Maintainer: 妹妹白勺仍子
+Author: 妹妹白勺仍子
 Tag: purpose::extension
 Installed-Size: 188
 Filename: debs/com.ajun.timeseconds_2.1.1_iphoneos-arm64.deb
-Size: 13016
-MD5sum: 4f4a9ac8a58a82bcb3ba7d7ab1b68005
-SHA1: f63998295a9e89283ee58bacf643989b6607dc74
-SHA256: 0e5b8fa19028ff7af0cfa7d2fd2c475174b587a71dae3e9988343af59300a7be
+Size: 13052
+MD5sum: 397b83dbac205f7770179382c93eb496
+SHA1: 4888c391f7128a075b21c5ded61090194fd67c68
+SHA256: ba8c8f603b0e596f2ec99bc817785363c3b81757cd2c4755f7ee55a135e4b4b1
 Description: 让状态栏时间实时显示秒数
  系统状态栏默认只在分钟变化时刷新，本插件接管时间文本，
  每秒更新一次，显示成 9:41:07 这样的格式。
@@ -77,15 +77,15 @@ Version: 2.1.2
 Architecture: iphoneos-arm64
 Section: Tweaks
 Depends: mobilesubstrate
-Maintainer: ajun
-Author: ajun
+Maintainer: 妹妹白勺仍子
+Author: 妹妹白勺仍子
 Tag: purpose::extension
 Installed-Size: 188
 Filename: debs/com.ajun.timeseconds_2.1.2_iphoneos-arm64.deb
-Size: 13034
-MD5sum: b1ab38f1a6f03a3dbad4386b3d334c2f
-SHA1: 32826deaa8607ddbb752fffb5ed2378fda3fd889
-SHA256: 58c84772b36a74d3473385f9c91953f85e9bad7bd29f4d3ee64315a399d40241
+Size: 13068
+MD5sum: 0ddefe988a9540daf7e859a193ee7cb1
+SHA1: dbecc9a8b4449b3510ee2465f27820f8023b7475
+SHA256: c3df8bc4ac83350318e7aa9ed98fa2a4943f578b3b05c2480fbcf4147c102c09
 Description: 让状态栏时间实时显示秒数
  系统状态栏默认只在分钟变化时刷新，本插件接管时间文本，
  每秒更新一次，显示成 9:41:07 这样的格式。
